@@ -1,12 +1,14 @@
 const fs = require('fs');
 const sqlite3 = require('sqlite3').verbose();
+const logger = require("../utils/winston")(__filename);
 const filepath = ('./db.sqlite')
 
 // db connection test
-// let db = new sqlite3.Database('./db.sqlite', err => {
-//   if (err)
-//   throw err;
-//   console.log('logged to db');
+// let db = new sqlite3.Database(filepath, (err) => {
+// 	if (err) {
+// 		console.error(err.message);
+// 	}
+// 	console.log("Connected to the database.");
 // });
 
 function createDbConnection() {
