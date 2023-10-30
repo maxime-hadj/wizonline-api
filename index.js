@@ -15,3 +15,27 @@ const health = require('./server/routes/health');
 
 // create express app
 const app = express();
+
+// mongo connection
+const tmpState = moodyCo.readyState;
+let stateSQLite = '';
+let isUp = false;
+switch (tmpState) {
+    case 0:
+        stateSQLite = 'disconnected';
+    break;
+    case 1:
+        stateSQLite = 'connected';
+        isUp = true;
+    break;
+    case 2:
+        stateSQLite = 'connecting';
+    break;
+    case 3:
+        stateSQLite = 'disconnecting';
+    break;
+    default:
+        stateSQLite = 'unknow';
+    break;
+};
+
