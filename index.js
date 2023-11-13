@@ -1,4 +1,6 @@
-require('dotenv').config();
+// require('dotenv').config();
+const sqlite3 = require("sqlite3").verbose();
+const filepath = "./server/connections/db.sqlite";
 const path = require('path');
 const express = require('express');
 const fs = require('fs');
@@ -8,34 +10,35 @@ const cors = require('cors');
 const helmet = require('helmet');
 const noCache = require('nocache');
 const bodyParser = require('body-parser');
-const httpContext = require('express-http-context');
+// const httpContext = require('express-http-context');
 const morgan = require('morgan');
 const compress = require('compression');
 const health = require('./server/routes/health');
+// const logger = require("../utils/winston")(__filename);
 
 // create express app
-const app = express();
+// const app = express();
 
-// mongo connection
-const tmpState = moodyCo.readyState;
-let stateSQLite = '';
-let isUp = false;
-switch (tmpState) {
-    case 0:
-        stateSQLite = 'disconnected';
-    break;
-    case 1:
-        stateSQLite = 'connected';
-        isUp = true;
-    break;
-    case 2:
-        stateSQLite = 'connecting';
-    break;
-    case 3:
-        stateSQLite = 'disconnecting';
-    break;
-    default:
-        stateSQLite = 'unknow';
-    break;
-};
 
+// db connection test
+const db = new sqlite3.Database(filepath, sqlite3.OPEN_READONLY, (err) => {
+	if (err) {
+		console.error(err.message);
+	}
+	console.log("Connected to the database.");
+});
+
+db.close((err) => {
+	if (err) {
+		return console.error(err.message);
+	}
+	console.log("Close the database connection.");
+});
+
+// SQLite knex connection
+// const knex = require("knex")({
+// 	client: "sqlite3",
+// 	connection: {
+// 		filename: "./db.sqlite",
+// 	},
+// });
