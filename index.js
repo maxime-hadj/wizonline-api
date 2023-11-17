@@ -25,15 +25,41 @@ const db = new sqlite3.Database(filepath, sqlite3.OPEN_READONLY, (err) => {
 	if (err) {
 		console.error(err.message);
 	}
-	console.log("Connected to the database.");
+	console.log("Connected to " + filepath);
 });
 
-db.close((err) => {
+// db.close((err) => {
+// 	if (err) {
+// 		return console.error(err.message);
+// 	}
+// 	console.log("Closed the database connection.");
+// });
+
+// GET all accounts
+
+allAccounts = 'SELECT * FROM account';
+db.all(allAccounts,[],(err, rows) => {
 	if (err) {
-		return console.error(err.message);
+		console.error(err.message);
 	}
-	console.log("Close the database connection.");
+	rows.forEach((row) => {
+		console.log(row);
+	});
 });
+
+
+// GET all nec_soul
+
+allNec = "SELECT * FROM nec_soul";
+db.all(allNec, [], (err, rows) => {
+	if (err) {
+		console.error(err.message);
+	}
+	rows.forEach((row) => {
+		console.log(row);
+	});
+});
+
 
 // SQLite knex connection
 // const knex = require("knex")({
